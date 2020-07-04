@@ -1,0 +1,19 @@
+S3:
+ role.arn: "arn:aws-us-gov:iam::127869609744:role/AmazonS3FullAccessRole"
+ access.key: "AKIAR3RM7M4IDJMNUP46"
+ secret.key: "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"
+ bucket.name: "sdu-collection-storage"
+ 
+sfdc:
+ consumerKey:"3MVG9FG3dvS828gLmHzwj3qJ_xnxkijxk_8sbGkbf3ElRpe38i_JO.OnMd9QRD9AZtQpk7jaDbHPY9ZRZpb4C"
+ consumerPwd:"59134AC7AA45D7DF85EB35E0BF9B44250DA946377C879F6F6D39FBED238EF537"
+ userName: "integrationuser@nextgen-cs.com.indiana"
+ pwd:
+ securityToken: "b2LUsnhM1UvnDRbQs4S2A9th0"
+ tokenEndpoint: "https://test.salesforce.com/services/oauth2/token"
+
+http: 
+ host: "0.0.0.0"
+ port: "8083"
+ salseforcetoAwsPath: "/salseforcetows"
+ awstoSalseforcePath: "/awstoSalseforce"

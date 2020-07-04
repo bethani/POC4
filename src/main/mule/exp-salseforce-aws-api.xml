@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:s3="http://www.mulesoft.org/schema/mule/s3" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/s3 http://www.mulesoft.org/schema/mule/s3/current/mule-s3.xsd">
+	<flow name="exp-salseforce-auron-apiFlow" doc:id="225687f6-abd5-4f1c-9e43-00a09b6da660" >
+		<http:listener doc:name="Listener" doc:id="5af54dd2-2dfa-43b5-b511-fe2a8acba5de" config-ref="HTTP_Listener_config" path="${http.salseforcetoAwsPath}"/>
+		<salesforce:query doc:name="Query" doc:id="c3f2dd02-478d-4cee-a802-3d81378d3f15" config-ref="Salesforce_Config"/>
+		<ee:transform doc:name="Transform Message" doc:id="a8cce96c-2517-4888-b4d1-9affa83ab353" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<s3:create-object doc:name="Create object" doc:id="8e7ec05b-6663-4d5f-8b21-9fbb5acb96a3" config-ref="Amazon_S3_Configuration" key="SalseforcetoAws.jason" bucketName="${s3.bucket.name}"/>
+		<ee:transform doc:name="Transform Message" doc:id="cddcc102-0294-4db0-9ff2-668417a7d136" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	massage: "created file in AWS-s3 from salseforce"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
